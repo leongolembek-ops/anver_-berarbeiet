@@ -30,21 +30,25 @@ export default {
         },
         ink: '#102322',
         offwhite: '#f8faf9',
-        /* Petrol-Variante (Option A): Petrol = ANVERO handelt, Gold = Ihr Team handelt.
-           Kontraste (ca.): petrol auf weiss 7,8:1 · gold auf gold-tint 5,0:1 · muted auf paper 5,3:1 */
+        /* Papier und Tinte: Petrol = ANVERO handelt, Ocker = ausschliesslich Ihr Team handelt.
+           Kontraste (ca.): petrol auf weiss 9,4:1 · ochre auf weiss 5,9:1 · ochre auf ochre-tint 5,0:1
+           · muted auf paper 5,3:1 · ochre auf petrol-tint 5,1:1 */
         av: {
-          paper: '#FAFAF7',
-          ink: '#0E1F1E',
-          body: '#3D4B4A',
-          muted: '#5E6B6A',
-          line: '#E3E6E3',
-          petrol: '#0F5C58',
-          'petrol-dark': '#0B4744',
-          'petrol-tint': '#E8F0EE',
-          gold: '#8A5A0B',
-          'gold-tint': '#F6EBD3',
-          night: '#0F2928',
+          paper: '#F7F5F0',
+          ink: '#14201F',
+          body: '#3B4443',
+          muted: '#5F6866',
+          line: '#E2DED5',
+          petrol: '#0F4F4B',
+          'petrol-dark': '#0B3D3A',
+          'petrol-tint': '#E6EFEC',
+          ochre: '#8A5A0B',
+          'ochre-tint': '#F6EBD3',
+          night: '#10211F',
         },
+      },
+      boxShadow: {
+        paper: '0 1px 2px rgba(20,32,31,.06), 0 16px 40px rgba(20,32,31,.08)',
       },
       fontFamily: {
         sans: ['Inter', 'system-ui', 'sans-serif'],

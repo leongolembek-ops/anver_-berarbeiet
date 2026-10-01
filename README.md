@@ -56,48 +56,55 @@ Technischer Ablauf und Datenschutzfolgen (Make, Airtable, KI): siehe `LEGAL-TODO
 
 ### Hero (oberster Bereich)
 
-- **H1:** "Standardangebote automatisch erstellen. Nur noch pruefen und senden."
+- **H1:** "Anfrage rein. Angebot fertig. Sie senden." ("Sie senden." in Ocker, weil es die Handlung des Teams ist)
 - **Zeile ueber der H1:** "Angebotsautomatisierung fuer Gebaeudereinigungen" (schlichter Text, kein Badge).
-- **Unterzeile:** Fuer Ihre Standardleistungen liegen nach wenigen Minuten das Angebot als PDF und die
-  Kunden-E-Mail als Entwurf in Ihrem Postfach. Fehlt eine Angabe, liegt die Rueckfrage bereit. Sonderfaelle
-  uebernimmt Ihr Team.
-- **Faehigkeitenliste:** "ANVERO uebernimmt: Anfragen erfassen, Fehlendes erkennen, Rueckfragen schreiben,
-  Antworten zuordnen, Angebote als PDF erstellen, Sonderfaelle erkennen" gegen "Ihr Team: Pruefen und senden".
+- **Unterzeile:** "Fuer von Ihnen festgelegte Standardleistungen erstellt ANVERO das Angebot direkt im Postfach:
+  als PDF mit Kunden-E-Mail im Entwurf. Fehlt eine Angabe, liegt die Rueckfrage bereit. Ihr Team prueft und sendet."
 - **Hauptbutton:** "Demo-Termin auswaehlen" (Calendly, neuer Tab). Daneben Textlink "Ablauf an einem Beispiel
   ansehen" (`#ablauf`). Darunter "Persoenlich mit dem Gruender, an einer Ihrer Anfragen, unverbindlich" und der
   Textlink "Anfrage per Formular".
-- **Hero-Visual: Schriftwechsel mit Testdaten** (keine Oberflaeche, kein Dashboard, keine Betraege):
-  Anfrage (09:14) -> ANVERO: Reinigungszeiten fehlen, Rueckfrage liegt bereit (09:16) -> Rueckfrage
-  ("Entwurf, von Ihnen gesendet") -> Kundenantwort (11:02) -> ANVERO: Antwort zugeordnet, Angebot erstellt
-  (11:04) -> Kunden-E-Mail mit `Angebot_Beispiel-GmbH.pdf` ("Entwurf, wartet auf Ihr Senden").
-  Gekennzeichnet als "Beispielablauf, Testdaten". Die Zeitstempel zeigen den Effekt "nach wenigen Minuten".
+- **Hero-Visual: nur das Ergebnis** ("Beispielablauf mit Testdaten"): Angebots-PDF auf Briefpapier
+  (Musterreinigung GmbH an Beispiel GmbH, Angebot Nr. 0001, Leistung, Objekt, Flaeche, Intervall, Zeiten, Preis
+  "nach Ihren Regeln" ohne Betrag), davor die Kunden-E-Mail mit Etikett "Entwurf", PDF-Anhang und der Zeile
+  "Gesendet wird nur von Ihrem Team".
 
-### Gestaltung (Petrol-Variante, Option A)
+### Gestaltung (Papier und Tinte)
 
-- Farb-Tokens `av.*` in `tailwind.config.js`: paper #FAFAF7, ink #0E1F1E, body #3D4B4A, muted #5E6B6A,
-  line #E3E6E3, petrol #0F5C58 (CTA und alles, was ANVERO tut), gold #8A5A0B mit gold-tint #F6EBD3 (alles, was
-  Ihr Team tut), night #0F2928 (Kontrolle, Footer).
-- Petrol nur fuer CTA und ANVERO-Aktionen, Gold nur fuer den Menschen. Keine Pastellkaesten als Dekoration.
-- Nur Artefakte (E-Mails, PDF) haben Flaeche und Schatten. Inhalte stehen frei, getrennt durch Haarlinien.
-- Schrift Inter, Ueberschriften in 600 (kein 900 mehr), Fliesstext 17 px.
-- CTA: Petrol, weisse Schrift, Ecken 10 px, kein Leuchtschatten, kein Hochspringen.
+- Farb-Tokens `av.*` in `tailwind.config.js`: paper #F7F5F0, ink #14201F, body #3B4443, muted #5F6866,
+  line #E2DED5, petrol #0F4F4B (CTA und alles, was ANVERO tut), ochre #8A5A0B mit ochre-tint #F6EBD3
+  (ausschliesslich das, was Ihr Team tut), night #10211F (Kontrolle, Footer). Schatten `shadow-paper` nur fuer
+  Artefakte.
+- Keine Karten als Dekoration, kein Hintergrundraster, kein Leuchten. Inhalte stehen frei, getrennt durch
+  Haarlinien und Weissraum. Nur PDF und E-Mails haben Flaeche und Schatten.
+- Schrift Inter, Ueberschriften in 600, Fliesstext 17 px. Keine Serifenschrift (wuerde ein neues Paket brauchen).
+- CTA: Petrol, weisse Schrift, Ecken 10 px, kein Leuchtschatten, kein Hochspringen, bricht nicht um.
 
 ### Seitenaufbau und Anker
 
-Hero (`#top`) - So laeuft eine Anfrage, drei Wege (`#ablauf`) - Zeitersparnis, Vorher/Nachher (`#zeit`) -
-Kontrolle (`#kontrolle`) - Zeitrechner (`#rechner`) - Pilotphase (`#pilot`) - Gruender (`#gruender`) - FAQ (`#faq`) -
-Demo mit Calendly und Formular (`#demo`).
-Navigation im Header: Ablauf, Zeitersparnis, Kontrolle, Pilotphase, FAQ. Alle Anker laufen ueber `/#...`, damit
-sie auch auf Unterseiten wie `/impressum` funktionieren.
+Hero (`#top`) - E-Mail-Verlauf mit Weiche (`#ablauf`) - Zeitersparnis und Rechner (`#zeit`) - Kontrolle
+(`#kontrolle`) - Pilotphase (`#pilot`) - Gruender (`#gruender`) - FAQ (`#faq`) - Demo mit Calendly und Formular
+(`#demo`). Navigation im Header: Ablauf, Zeitersparnis, Kontrolle, Pilotphase, FAQ. Alle Anker laufen ueber
+`/#...`, damit sie auch auf Unterseiten wie `/impressum` funktionieren.
 
-Unter den drei Wegen steht die Vertrauenszeile (unveraendert beibehalten): "Kein neues System. Keine
-unkontrollierten Sendungen. Ihr Team arbeitet im bestehenden Postfach und sendet nur, was geprueft wurde."
+**E-Mail-Verlauf mit Weiche:** Zeitleiste mit zwei Spuren (Kunde links, Ihr Postfach rechts) und Achse in der
+Mitte, mobil eine Spur mit Achse links. Punkte: grau = Kunde, Petrol = ANVERO, Ocker = Ihr Team. An der Stelle
+"ANVERO prueft die Anfrage" steht die Weiche mit drei Wegen: Alles da (Angebot als PDF und Kunden-E-Mail, Ihr Team
+prueft und sendet), Etwas fehlt (Rueckfrage als Entwurf, Ihr Team sendet, Kunde antwortet, Antwort wird zugeordnet,
+Angebot), Sonderfall (manuelle Pruefung durch Ihr Team). Das Beispiel folgt "Etwas fehlt". Am Ende die
+Vertrauenszeile (unveraendert): "Kein neues System. Keine unkontrollierten Sendungen. Ihr Team arbeitet im
+bestehenden Postfach und sendet nur, was geprueft wurde." Der fruehere Abschnitt "Drei Wege" ist entfallen.
 
-**Zeitersparnis:** Vorher/Nachher zeigt acht typische Arbeitsschritte heute gegen "Pruefen. Senden." mit ANVERO,
-dazu die Reaktionszeit ("nach wenigen Minuten im Postfach"). **Zeitrechner:** drei Felder (Standardangebote pro
-Monat, Minuten pro Angebot heute, Minuten fuer Pruefen und Senden). Rechnet nur mit den Eingaben des Besuchers.
-Startwerte 30 / 45 / 5, der Wert 5 Minuten ist als "Annahme, anpassbar" gekennzeichnet. Sonderfaelle sind nicht
-eingerechnet, Hinweis "Keine Zusage".
+**Zeitersparnis und Rechner:** Ueberschrift "Weniger manuelle Schritte zwischen Anfrage und Angebot.", Text "Die
+wiederkehrenden Schritte uebernimmt ANVERO. Bei Ihrem Team bleiben Pruefen und Senden." Arbeitsteilung als zwei
+Balken mit acht Feldern (heute grau, mit ANVERO sieben Petrol, eins Ocker) und nummerierter Schrittliste, gekennzeichnet
+als "Typischer Ablauf einer Standardanfrage". Der Satz "7 von 8 Arbeitsschritten uebernimmt ANVERO" wird
+ausdruecklich nicht verwendet. Keine durchgestrichene Liste mehr.
+Rechner mit Zahlenfeldern (keine Schieberegler): Standardangebote pro Monat (30), Minuten pro Angebot heute (45,
+inklusive Kalkulation, Angebot und E-Mail), Minuten fuer Pruefen und Senden mit ANVERO (5, anpassbarer Beispielwert).
+Ergebnis "20 Stunden mögliche Zeitersparnis pro Monat" mit Rechenweg. Direkt darunter: "Beispielrechnung auf
+Grundlage Ihrer Angaben. Die 5 Minuten sind ein anpassbarer Beispielwert fuer Pruefen und Senden. Rueckfragen und
+Sonderfaelle sind nicht eingerechnet. Keine Zusage einer bestimmten Bearbeitungszeit." (Die Minutenzahl passt sich
+der Eingabe an.)
 
 Die Seite zeigt keine erfundenen Kunden, Referenzen, Zitate, Logos oder Zahlen. Beispiele sind als Beispiele
 gekennzeichnet.

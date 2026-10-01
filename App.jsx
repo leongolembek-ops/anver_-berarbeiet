@@ -5,65 +5,70 @@ import { CONTACT } from "./siteConfig";
 import Impressum from "./pages/Impressum";
 import Datenschutz from "./pages/Datenschutz";
 
-/* Gestaltungsregeln (Petrol-Variante):
-   - Petrol (av-petrol) = ANVERO handelt, Gold (av-gold) = Ihr Team handelt. Sonst neutral.
-   - Nur Artefakte (E-Mails, PDF) bekommen eine Flaeche mit Schatten. Inhalte stehen frei,
-     getrennt durch Haarlinien (av-line) und Weissraum.
-   - "Angebot" = fertiges PDF. "Entwurf" nur fuer Rueckfrage und Kunden-E-Mail. ANVERO sendet nie selbst. */
+/* Gestaltungsregeln (Papier und Tinte):
+   - Petrol (av-petrol) = ANVERO handelt. Ocker (av-ochre) = ausschliesslich Ihr Team handelt. Sonst neutral.
+   - Nur Artefakte (E-Mails, PDF) bekommen Flaeche und Papierschatten. Inhalte stehen frei,
+     getrennt durch Haarlinien (av-line) und Weissraum. Kein Raster, kein Leuchten.
+   - "Angebot" = fertiges PDF. "Entwurf" nur fuer Rueckfrage und Kunden-E-Mail. ANVERO sendet nie selbst.
+   - Keine Preise, keine erfundenen Kunden. Beispiele sind als Testdaten gekennzeichnet. */
 
 const H2 = "text-[clamp(1.9rem,3.6vw,2.6rem)] font-semibold leading-[1.1] tracking-[-.025em] text-av-ink";
 const KICKER = "mb-4 text-[13px] font-medium text-av-petrol";
 const LEAD = "mt-5 max-w-2xl text-[17px] leading-[1.65] text-av-body";
 const LINK = "font-semibold text-av-petrol underline underline-offset-2 hover:text-av-petrol-dark";
 
-/* ── Hero-Visual: Schriftwechsel mit Testdaten ─────────────────── */
+/* ── Hero-Visual: nur das Ergebnis (Angebots-PDF und Kunden-E-Mail im Entwurf) ── */
 
-function ThreadMail({ from, to, time, subject, text, attachment, tag, outgoing = false }) {
+function HeroArtifact() {
+  const rows = [
+    ["Leistung", "Unterhaltsreinigung"],
+    ["Objekt", "Bürogebäude, Musterstadt"],
+    ["Fläche", "1.200 m²"],
+    ["Intervall", "3× wöchentlich"],
+    ["Zeiten", "Mo, Mi, Fr ab 18 Uhr"],
+  ];
   return (
-    <div className={`rounded-[10px] border border-av-line bg-white px-4 py-3 shadow-[0_1px_2px_rgba(14,31,30,.05),0_10px_28px_rgba(14,31,30,.06)] ${outgoing ? "ml-6 sm:ml-10" : ""}`}>
-      <p className="flex justify-between gap-3 text-[12px] text-av-muted">
-        <span>{outgoing ? `An: ${to}` : `Von: ${from}`}</span>
-        {time && <span>{time}</span>}
-      </p>
-      {subject && <p className="mt-1 text-[14px] font-semibold text-av-ink">{subject}</p>}
-      {text && <p className="mt-1 text-[14px] leading-6 text-av-ink">{text}</p>}
-      {attachment && (
-        <p className="mt-2 inline-flex items-center gap-2 rounded-md border border-av-line px-2.5 py-1.5 text-[13px] text-av-ink">
-          <Icon name="file" size={15} className="shrink-0 text-av-petrol" />{attachment}
-        </p>
-      )}
-      {tag && (
-        <p className="mt-2">
-          <span className="rounded-md bg-av-gold-tint px-2 py-0.5 text-[12px] font-medium text-av-gold">{tag}</span>
-        </p>
-      )}
-    </div>
-  );
-}
+    <figure className="mx-auto w-full max-w-[500px]">
+      <figcaption className="mb-3 text-[12px] text-av-muted">Beispielablauf mit Testdaten</figcaption>
 
-function SystemNote({ time, children }) {
-  return (
-    <p className="my-2.5 ml-3 border-l-2 border-av-petrol pl-3 text-[13px] leading-5 text-av-petrol">
-      <span className="font-semibold">ANVERO</span>{time && <span className="text-av-muted"> · {time}</span>}
-      <br />{children}
-    </p>
-  );
-}
-
-function HeroThread() {
-  return (
-    <figure className="mx-auto w-full max-w-[520px]">
-      <figcaption className="mb-3 text-right text-[12px] text-av-muted">Beispielablauf · Testdaten</figcaption>
-      <ThreadMail from="Beispiel GmbH" time="09:14"
-        text="„Wir benötigen eine Unterhaltsreinigung für unser Büro in Musterstadt, ca. 1.200 m², dreimal pro Woche …“" />
-      <SystemNote time="09:16">Reinigungszeiten fehlen. Rückfrage liegt bereit.</SystemNote>
-      <ThreadMail outgoing to="Beispiel GmbH" text="„Zu welchen Zeiten soll gereinigt werden?“" tag="Entwurf · von Ihnen gesendet" />
-      <div className="mt-2.5">
-        <ThreadMail from="Beispiel GmbH" time="11:02" text="„Montag, Mittwoch und Freitag ab 18 Uhr.“" />
+      <div className="rounded-[4px] border border-av-line bg-white px-6 pb-24 pt-6 shadow-paper sm:px-8">
+        <div className="flex items-start justify-between gap-4 border-b border-av-line pb-4">
+          <div>
+            <p className="text-[12px] text-av-muted">Musterreinigung GmbH</p>
+            <p className="mt-1 text-[18px] font-semibold text-av-ink">Angebot Nr. 0001</p>
+          </div>
+          <p className="text-right text-[12px] leading-5 text-av-muted">für Beispiel GmbH<br />Musterstadt</p>
+        </div>
+        <dl className="mt-3 text-[13px]">
+          {rows.map(([k, v]) => (
+            <div key={k} className="flex justify-between gap-4 border-b border-av-line py-2">
+              <dt className="text-av-muted">{k}</dt>
+              <dd className="text-right text-av-ink">{v}</dd>
+            </div>
+          ))}
+          <div className="flex items-center justify-between gap-4 py-2">
+            <dt className="text-av-muted">Preis</dt>
+            <dd className="flex items-center gap-2">
+              <span aria-hidden="true" className="h-2 w-14 rounded-sm bg-av-line" />
+              <span className="text-[12px] text-av-petrol">nach Ihren Regeln</span>
+            </dd>
+          </div>
+        </dl>
       </div>
-      <SystemNote time="11:04">Antwort zugeordnet. Angebot nach Ihren Regeln erstellt.</SystemNote>
-      <ThreadMail outgoing to="Beispiel GmbH" subject="Ihr Angebot für die Unterhaltsreinigung"
-        attachment="Angebot_Beispiel-GmbH.pdf" tag="Entwurf · wartet auf Ihr Senden" />
+
+      <div className="relative z-10 -mt-16 ml-6 rounded-[10px] border border-av-line bg-white p-4 shadow-paper sm:ml-16">
+        <p className="flex items-center justify-between gap-3 text-[12px] text-av-muted">
+          <span>An: Beispiel GmbH</span>
+          <span className="rounded bg-av-ochre-tint px-1.5 py-0.5 font-medium text-av-ochre">Entwurf</span>
+        </p>
+        <p className="mt-1 text-[14px] font-semibold text-av-ink">Ihr Angebot für die Unterhaltsreinigung</p>
+        <p className="mt-2 inline-flex items-center gap-2 rounded-md border border-av-line px-2.5 py-1.5 text-[13px] text-av-ink">
+          <Icon name="file" size={15} className="shrink-0 text-av-petrol" />Angebot_Beispiel-GmbH.pdf
+        </p>
+        <p className="mt-3 flex items-center gap-2 border-t border-av-line pt-3 text-[13px] font-medium text-av-ochre">
+          <Icon name="shield" size={15} className="shrink-0" />Gesendet wird nur von Ihrem Team
+        </p>
+      </div>
     </figure>
   );
 }
@@ -73,18 +78,17 @@ function HeroThread() {
 function Hero() {
   return (
     <section id="top" className="border-b border-av-line bg-av-paper">
-      <div className="mx-auto grid max-w-[1180px] items-center gap-14 px-5 py-12 sm:py-16 lg:grid-cols-[1.05fr_.95fr] lg:gap-16 lg:px-8 lg:py-16">
+      <div className="mx-auto grid max-w-[1180px] items-center gap-14 px-5 py-12 sm:py-16 lg:grid-cols-2 lg:gap-16 lg:px-8 lg:py-20">
         <div>
           <p className="mb-5 text-[13px] font-medium text-av-muted">Angebotsautomatisierung für Gebäudereinigungen</p>
-          <h1 className="break-words text-[clamp(2.25rem,4.8vw,3.5rem)] font-semibold leading-[1.06] tracking-[-.03em] text-av-ink [hyphens:auto]">
-            Standardangebote <span className="text-av-petrol">automatisch erstellen.</span> Nur noch prüfen und senden.
+          <h1 className="text-[clamp(2.5rem,5.4vw,4rem)] font-semibold leading-[1.05] tracking-[-.03em] text-av-ink">
+            Anfrage rein. Angebot fertig. <span className="text-av-ochre">Sie senden.</span>
           </h1>
           <p className="mt-6 max-w-[540px] text-[17px] leading-[1.65] text-av-body">
-            Für Ihre Standardleistungen liegen nach wenigen Minuten das Angebot als PDF und die Kunden-E-Mail als
-            Entwurf in Ihrem Postfach. Fehlt eine Angabe, liegt die Rückfrage bereit. Sonderfälle übernimmt Ihr Team.
+            Für von Ihnen festgelegte Standardleistungen erstellt ANVERO das Angebot direkt im Postfach: als PDF mit
+            Kunden-E-Mail im Entwurf. Fehlt eine Angabe, liegt die Rückfrage bereit. Ihr Team prüft und sendet.
           </p>
-
-          <div className="mt-8 flex flex-col gap-4 sm:flex-row sm:items-center sm:gap-6">
+          <div className="mt-8 flex flex-col gap-4 sm:flex-row sm:flex-wrap sm:items-center sm:gap-x-6">
             <CalendlyButton size="lg" className="w-full sm:w-auto" />
             <a href="#ablauf" className="inline-flex items-center gap-1.5 text-[15px] font-semibold text-av-petrol hover:text-av-petrol-dark focus:outline-none focus-visible:underline">
               Ablauf an einem Beispiel ansehen <Icon name="arrow" size={16} />
@@ -94,64 +98,147 @@ function Hero() {
             Persönlich mit dem Gründer · an einer Ihrer Anfragen · unverbindlich ·{" "}
             oder <a href="#demo" className={LINK}>Anfrage per Formular</a>
           </p>
-
-          <dl className="mt-8 max-w-[540px] border-t border-av-line pt-5 text-[14px] leading-6">
-            <dt className="font-medium text-av-petrol">ANVERO übernimmt</dt>
-            <dd className="mt-1 text-av-ink">
-              Anfragen erfassen · Fehlendes erkennen · Rückfragen schreiben · Antworten zuordnen · Angebote als PDF erstellen · Sonderfälle erkennen
-            </dd>
-            <dt className="mt-3 font-medium text-av-gold">Ihr Team</dt>
-            <dd className="mt-1 text-av-ink">Prüfen und senden</dd>
-          </dl>
         </div>
 
-        <HeroThread />
+        <HeroArtifact />
       </div>
     </section>
   );
 }
 
-/* ── Ablauf: drei Wege, ein Prinzip ────────────────────────────── */
+/* ── E-Mail-Verlauf mit Weiche ─────────────────────────────────── */
+/* Desktop: zwei Spuren (Kunde links, Ihr Postfach rechts) und eine Zeitachse in der Mitte.
+   Mobil: eine Spur, die Achse liegt am linken Rand. Punkte: grau = Kunde, Petrol = ANVERO, Ocker = Ihr Team. */
 
-const FLOWS = [
-  ["Alles da", [["n", "Anfrage"], ["a", "Angaben erfasst"], ["a", "Angebot als PDF und Kunden-E-Mail bereit"], ["h", "Ihr Team prüft und sendet"]]],
-  ["Etwas fehlt", [["n", "Anfrage"], ["a", "Lücke erkannt"], ["a", "Rückfrage bereit"], ["h", "Ihr Team sendet"], ["n", "Kunde antwortet"], ["a", "Antwort zugeordnet"], ["a", "weiter wie bei „Alles da“"]]],
-  ["Sonderfall", [["n", "Anfrage"], ["a", "Sonderfall erkannt"], ["h", "Ihr Team übernimmt"]]],
+const DOT = { neutral: "bg-[#B9C1BF]", petrol: "bg-av-petrol", ochre: "bg-av-ochre" };
+const TONE = { a: "text-av-petrol", h: "font-medium text-av-ochre", n: "text-av-ink" };
+const WAYS = [
+  ["Alles da", false, [["a", "Angebot als PDF und Kunden-E-Mail"], ["h", "Ihr Team prüft und sendet"]]],
+  ["Etwas fehlt", true, [["a", "Rückfrage als Entwurf"], ["h", "Ihr Team sendet"], ["n", "Kunde antwortet"], ["a", "Antwort wird zugeordnet"], ["a", "Angebot als PDF und Kunden-E-Mail"]]],
+  ["Sonderfall", false, [["h", "Manuelle Prüfung durch Ihr Team"]]],
 ];
-const TONE = { n: "text-av-ink", a: "text-av-petrol", h: "font-semibold text-av-gold" };
+
+function Dot({ tone }) {
+  return (
+    <span aria-hidden="true"
+      className={`absolute left-[6px] top-[18px] z-10 h-3 w-3 rounded-full ring-4 ring-white md:left-1/2 md:-translate-x-1/2 ${DOT[tone]}`} />
+  );
+}
+
+function Lane({ side, dot, children }) {
+  return (
+    <li className="relative pl-9 md:grid md:grid-cols-[minmax(0,1fr)_72px_minmax(0,1fr)] md:pl-0">
+      <Dot tone={dot} />
+      <div className={side === "left" ? "md:col-start-1 md:flex md:justify-end" : "md:col-start-3"}>{children}</div>
+    </li>
+  );
+}
+
+function Mail({ who, time, title, draft = false, children }) {
+  return (
+    <div className="w-full max-w-[420px] rounded-[10px] border border-av-line bg-white px-4 py-3 shadow-paper">
+      <p className="flex items-center justify-between gap-3 text-[12px] text-av-muted">
+        <span>{who}{time && ` · ${time}`}</span>
+        {draft && <span className="rounded bg-av-ochre-tint px-1.5 py-0.5 font-medium text-av-ochre">Entwurf</span>}
+      </p>
+      {title && <p className="mt-1 text-[14px] font-semibold text-av-ink">{title}</p>}
+      <div className="mt-1 text-[14px] leading-6 text-av-ink">{children}</div>
+    </div>
+  );
+}
+
+function TeamAction({ children }) {
+  return <p className="mt-2 text-[13px] font-medium text-av-ochre">{children}</p>;
+}
 
 function Flow() {
   return (
     <section id="ablauf" className="bg-white py-20 sm:py-28">
       <div className="mx-auto max-w-[1120px] px-5 lg:px-8">
         <p className={KICKER}>So läuft eine Anfrage</p>
-        <h2 className={H2}>Drei Wege, ein Prinzip: Ihr Team sendet.</h2>
+        <h2 className={`max-w-3xl ${H2}`}>ANVERO prüft jede Anfrage und wählt den richtigen Weg.</h2>
         <p className={LEAD}>
-          Angebot oder Rückfrage liegen nach wenigen Minuten in Ihrem Postfach. Was nicht zu Ihren Standardleistungen
-          passt, bleibt bei Ihrem Team.
+          Vollständige Anfragen werden zum Angebot, fehlende Angaben zur Rückfrage, Sonderfälle gehen an Ihr Team.
+          Gesendet wird immer von Ihnen.
         </p>
 
-        <dl className="mt-12 border-b border-av-line">
-          {FLOWS.map(([label, steps]) => (
-            <div key={label} className="grid gap-2 border-t border-av-line py-5 md:grid-cols-[10rem_1fr] md:gap-8">
-              <dt className="text-[15px] font-semibold text-av-ink">{label}</dt>
-              <dd className="flex flex-wrap items-center gap-x-2 gap-y-1.5 text-[15px] leading-6">
-                {steps.map(([tone, text], i) => (
-                  <span key={text} className="inline-flex items-center gap-2">
-                    {i > 0 && <Icon name="arrow" size={14} className="shrink-0 text-av-muted" />}
-                    <span className={TONE[tone]}>{text}</span>
-                  </span>
+        <div className="mt-12 hidden text-[13px] font-medium text-av-muted md:grid md:grid-cols-[minmax(0,1fr)_72px_minmax(0,1fr)]">
+          <span className="text-right">Kunde</span><span /><span>Ihr Postfach</span>
+        </div>
+
+        <div className="relative mt-4">
+        <span aria-hidden="true" className="absolute bottom-8 left-[11px] top-6 w-px bg-av-line md:left-1/2" />
+        <ol className="relative space-y-6" aria-label="Beispielablauf mit Testdaten">
+
+          <Lane side="left" dot="neutral">
+            <Mail who="Kunde" time="09:14">
+              „Wir benötigen eine Unterhaltsreinigung für unser Büro in Musterstadt, ca. 1.200 m², dreimal pro Woche …“
+            </Mail>
+          </Lane>
+
+          <li className="relative pl-9 md:pl-0">
+            <Dot tone="petrol" />
+            <div className="relative z-0 rounded-[10px] bg-av-petrol-tint px-5 py-5 md:mx-auto md:max-w-[920px] md:px-8">
+              <p className="text-[14px] text-av-petrol"><span className="font-semibold">ANVERO prüft die Anfrage</span> · 09:16</p>
+              <div className="mt-4 grid gap-5 md:grid-cols-3 md:gap-0 md:divide-x md:divide-av-petrol/20">
+                {WAYS.map(([title, active, steps]) => (
+                  <div key={title} className="md:px-6 md:first:pl-0 md:last:pr-0">
+                    <p className="flex flex-wrap items-center gap-2 text-[15px] font-semibold text-av-ink">
+                      {title}
+                      {active && <span className="rounded bg-white px-1.5 py-0.5 text-[11px] font-medium text-av-petrol">In diesem Beispiel</span>}
+                    </p>
+                    <ol className="mt-2 space-y-1 text-[13px] leading-5">
+                      {steps.map(([tone, text]) => (
+                        <li key={text} className={`flex gap-1.5 ${TONE[tone]}`}>
+                          <span aria-hidden="true" className="text-av-muted">→</span>{text}
+                        </li>
+                      ))}
+                    </ol>
+                  </div>
                 ))}
-              </dd>
+              </div>
             </div>
-          ))}
-        </dl>
-        <p className="mt-4 flex flex-wrap gap-x-6 gap-y-2 text-[13px] text-av-muted">
-          <span className="inline-flex items-center gap-2"><span className="h-2 w-2 rounded-full bg-av-petrol" />ANVERO</span>
-          <span className="inline-flex items-center gap-2"><span className="h-2 w-2 rounded-full bg-av-gold" />Ihr Team</span>
-        </p>
+          </li>
 
-        <p className="mt-12 flex max-w-3xl items-start gap-3 text-[18px] font-medium leading-8 text-av-ink">
+          <Lane side="right" dot="ochre">
+            <div className="w-full max-w-[420px]">
+              <Mail who="Ihr Postfach · Rückfrage" draft>„Zu welchen Zeiten soll gereinigt werden?“</Mail>
+              <TeamAction>Ihr Team sendet die Rückfrage</TeamAction>
+            </div>
+          </Lane>
+
+          <Lane side="left" dot="neutral">
+            <Mail who="Kunde" time="11:02">„Montag, Mittwoch und Freitag ab 18 Uhr.“</Mail>
+          </Lane>
+
+          <Lane side="right" dot="petrol">
+            <p className="max-w-[420px] pt-3 text-[13px] leading-5 text-av-petrol">
+              <span className="font-semibold">ANVERO</span> · 11:04<br />Antwort zugeordnet. Angebot nach Ihren Regeln erstellt.
+            </p>
+          </Lane>
+
+          <Lane side="right" dot="ochre">
+            <div className="w-full max-w-[420px]">
+              <Mail who="Ihr Postfach · Kunden-E-Mail" title="Ihr Angebot für die Unterhaltsreinigung" draft>
+                <div className="mt-2 rounded-[4px] border border-av-line bg-av-paper p-3">
+                  <p className="flex items-center gap-2 text-[13px] font-medium text-av-ink">
+                    <Icon name="file" size={15} className="shrink-0 text-av-petrol" />Angebot_Beispiel-GmbH.pdf
+                  </p>
+                  <div aria-hidden="true" className="mt-2.5 space-y-1.5">
+                    <span className="block h-1.5 w-4/5 rounded bg-av-line" />
+                    <span className="block h-1.5 w-3/5 rounded bg-av-line" />
+                    <span className="block h-1.5 w-2/3 rounded bg-av-line" />
+                  </div>
+                </div>
+              </Mail>
+              <TeamAction>Ihr Team prüft und sendet</TeamAction>
+            </div>
+          </Lane>
+        </ol>
+        </div>
+        <p className="mt-6 text-[12px] text-av-muted">Beispielablauf mit Testdaten.</p>
+
+        <p className="mt-12 flex max-w-3xl items-start gap-3 border-t border-av-line pt-8 text-[18px] font-medium leading-8 text-av-ink">
           <Icon name="shield" size={22} className="mt-1 shrink-0 text-av-petrol" />
           Kein neues System. Keine unkontrollierten Sendungen. Ihr Team arbeitet im bestehenden Postfach und sendet nur, was geprüft wurde.
         </p>
@@ -160,52 +247,105 @@ function Flow() {
   );
 }
 
-/* ── Zeitersparnis: Vorher / Nachher ───────────────────────────── */
+/* ── Zeitersparnis: Arbeitsteilung und Rechner ─────────────────── */
 
-const TODAY = ["Anfrage lesen", "Angaben heraussuchen", "Rückfrage schreiben", "Antwort suchen und zuordnen",
-  "Kalkulieren", "Angebot schreiben", "PDF erstellen", "E-Mail an den Kunden schreiben"];
+const STEPS = ["Anfrage lesen", "Angaben heraussuchen", "Rückfrage schreiben", "Antwort zuordnen",
+  "Kalkulieren", "Angebot und PDF erstellen", "Kunden-E-Mail schreiben", "Prüfen und senden"];
+
+const fmt = (n) => n.toLocaleString("de-DE", { maximumFractionDigits: 1 });
+const toNumber = (v) => {
+  const n = Number(v);
+  return Number.isFinite(n) && n > 0 ? n : 0;
+};
 
 function TimeSaving() {
-  const big = "text-[clamp(2.5rem,5vw,3.75rem)] font-semibold leading-[1.1] tracking-[-.03em]";
+  const [count, setCount] = useState("30");
+  const [today, setToday] = useState("45");
+  const [check, setCheck] = useState("5");
+
+  const c = toNumber(count), t = toNumber(today), k = toNumber(check);
+  const saved = Math.max((c * (t - k)) / 60, 0);
+  const minutesNote = k === 1 ? "Die 1 Minute ist ein anpassbarer Beispielwert" : `Die ${fmt(k)} Minuten sind ein anpassbarer Beispielwert`;
+
+  const fields = [
+    ["calc-count", "Standardangebote pro Monat", "z. B. Unterhalts- oder Glasreinigung", count, setCount],
+    ["calc-today", "Minuten pro Angebot heute", "inklusive Kalkulation, Angebot und E-Mail", today, setToday],
+    ["calc-check", "Minuten für Prüfen und Senden mit ANVERO", "Anpassbarer Beispielwert, keine Garantie", check, setCheck],
+  ];
+
   return (
     <section id="zeit" className="border-y border-av-line bg-av-paper py-20 sm:py-28">
       <div className="mx-auto max-w-[1120px] px-5 lg:px-8">
         <p className={KICKER}>Zeitersparnis</p>
-        <h2 className={H2}>Was bei einer Standardanfrage für Ihr Team übrig bleibt.</h2>
-        <p className={LEAD}>Typischer Ablauf heute, gegen den Ablauf mit ANVERO.</p>
+        <h2 className={`max-w-3xl ${H2}`}>Weniger manuelle Schritte zwischen Anfrage und Angebot.</h2>
+        <p className={LEAD}>Die wiederkehrenden Schritte übernimmt ANVERO. Bei Ihrem Team bleiben Prüfen und Senden.</p>
 
-        <div className="mt-12 grid gap-12 md:grid-cols-2 md:gap-0">
-          <div className="md:pr-12">
-            <p className="text-[14px] font-medium text-av-muted">Heute · {TODAY.length} Arbeitsschritte</p>
-            <ul className="mt-4 space-y-2.5 text-[16px] text-av-muted">
-              {TODAY.map((t) => (
-                <li key={t} className="line-through decoration-av-muted/60">
-                  {t}<span className="sr-only"> (übernimmt ANVERO)</span>
-                </li>
-              ))}
-            </ul>
+        {/* Arbeitsteilung: typischer Ablauf einer Standardanfrage */}
+        <div className="mt-12">
+          <p className="sr-only">
+            Heute erledigt Ihr Team alle Schritte. Mit ANVERO übernimmt ANVERO die Schritte 1 bis 7.
+            Bei Ihrem Team bleibt Schritt 8, Prüfen und Senden.
+          </p>
+          <div aria-hidden="true" className="grid grid-cols-[6.5rem_minmax(0,1fr)] items-center gap-x-4 gap-y-3 text-[14px]">
+            <span className="text-av-body">Heute</span>
+            <div className="grid grid-cols-8 gap-1">
+              {STEPS.map((s) => <span key={s} className="h-6 rounded-[3px] bg-[#C9CEC9]" />)}
+            </div>
+            <span className="font-medium text-av-petrol">Mit ANVERO</span>
+            <div className="grid grid-cols-8 gap-1">
+              {STEPS.map((s, i) => <span key={s} className={`h-6 rounded-[3px] ${i < STEPS.length - 1 ? "bg-av-petrol" : "bg-av-ochre"}`} />)}
+            </div>
           </div>
-          <div className="border-t border-av-line pt-10 md:border-l md:border-t-0 md:pl-12 md:pt-0">
-            <p className="text-[14px] font-medium text-av-petrol">Mit ANVERO · 2 Arbeitsschritte</p>
-            <p className={`mt-4 text-av-ink ${big}`}>Prüfen.</p>
-            <p className={`text-av-gold ${big}`}>Senden.</p>
-            <p className="mt-6 max-w-sm text-[16px] leading-7 text-av-body">
-              Anfragen lesen, Rückfragen schreiben, Antworten zuordnen, kalkulieren, Angebot und E-Mail erstellen
-              übernimmt ANVERO. Sonderfälle bleiben bei Ihrem Team.
-            </p>
-          </div>
+          <ol className="mt-6 grid gap-x-8 gap-y-2 text-[14px] sm:grid-cols-2 lg:grid-cols-4">
+            {STEPS.map((s, i) => (
+              <li key={s} className={i < STEPS.length - 1 ? "text-av-body" : "font-medium text-av-ochre"}>
+                <span className={`mr-2 font-semibold tabular-nums ${i < STEPS.length - 1 ? "text-av-petrol" : "text-av-ochre"}`}>{i + 1}</span>{s}
+              </li>
+            ))}
+          </ol>
+          <p className="mt-4 flex flex-wrap gap-x-6 gap-y-1 text-[13px] text-av-muted">
+            <span>Typischer Ablauf einer Standardanfrage</span>
+            <span className="text-av-petrol">Petrol: übernimmt ANVERO</span>
+            <span className="text-av-ochre">Ocker: Ihr Team</span>
+          </p>
         </div>
 
-        <dl className="mt-14 grid gap-6 border-t border-av-line pt-8 md:grid-cols-2 md:gap-12">
+        {/* Zeitrechner mit eigenen Werten */}
+        <div className="mt-16 grid gap-12 border-t border-av-line pt-14 lg:grid-cols-2 lg:gap-16">
           <div>
-            <dt className="text-[14px] font-medium text-av-muted">Reaktionszeit heute</dt>
-            <dd className="mt-1 text-[17px] text-av-ink">Bearbeitung, sobald jemand Zeit hat</dd>
+            <h3 className="text-[22px] font-semibold tracking-[-.015em] text-av-ink">Rechnen Sie mit Ihren eigenen Werten.</h3>
+            <p className="mt-2 text-[15px] text-av-body">Beispielrechnung. Ersetzen Sie die Startwerte durch Ihre Zahlen.</p>
+            <div className="mt-8 space-y-6">
+              {fields.map(([id, label, hint, value, set]) => (
+                <div key={id}>
+                  <label htmlFor={id} className="block text-[15px] font-medium text-av-ink">{label}</label>
+                  <p id={`${id}-hint`} className="mt-0.5 text-[13px] text-av-muted">{hint}</p>
+                  <input id={id} type="number" inputMode="numeric" min="0" step="1" value={value}
+                    aria-describedby={`${id}-hint`} onChange={(e) => set(e.target.value)}
+                    className="field mt-2 w-full max-w-[220px] tabular-nums" />
+                </div>
+              ))}
+            </div>
           </div>
-          <div>
-            <dt className="text-[14px] font-medium text-av-petrol">Reaktionszeit mit ANVERO</dt>
-            <dd className="mt-1 text-[17px] text-av-ink">Angebot oder Rückfrage nach wenigen Minuten im Postfach</dd>
+
+          <div className="lg:border-l lg:border-av-line lg:pl-16">
+            <div aria-live="polite">
+              <p className="text-[clamp(2.5rem,5vw,3.5rem)] font-semibold leading-none tracking-[-.02em] text-av-petrol">
+                {fmt(saved)} Stunden
+              </p>
+              <p className="mt-2 text-[18px] text-av-ink">mögliche Zeitersparnis pro Monat</p>
+              <p className="mt-2 text-[14px] text-av-muted">
+                {fmt(c)} Angebote × ({fmt(t)} − {fmt(k)}) Minuten · rund {fmt(saved * 12)} Stunden im Jahr
+              </p>
+            </div>
+            <p className="mt-5 border-l-2 border-av-line pl-3 text-[13px] leading-5 text-av-muted">
+              Beispielrechnung auf Grundlage Ihrer Angaben. {minutesNote} für Prüfen und Senden.
+              Rückfragen und Sonderfälle sind nicht eingerechnet. Keine Zusage einer bestimmten Bearbeitungszeit.
+            </p>
+            <p className="mt-8 text-[15px] text-av-body">In der Demo rechnen wir mit Ihren echten Abläufen.</p>
+            <CalendlyButton className="mt-4 w-full sm:w-auto" />
           </div>
-        </dl>
+        </div>
       </div>
     </section>
   );
@@ -248,85 +388,6 @@ function Control() {
   );
 }
 
-/* ── Zeitrechner mit eigenen Werten ────────────────────────────── */
-/* Rechnet nur mit den Eingaben des Besuchers. Der Startwert fuer "Pruefen und Senden" ist eine
-   gekennzeichnete Annahme (siehe LEGAL-TODO.md). */
-
-function Calculator() {
-  const [count, setCount] = useState(30);
-  const [today, setToday] = useState(45);
-  const [check, setCheck] = useState(5);
-
-  const hoursToday = (count * today) / 60;
-  const hoursWith = (count * Math.min(check, today)) / 60;
-  const saved = Math.max(hoursToday - hoursWith, 0);
-  const share = hoursToday > 0 ? Math.round((hoursWith / hoursToday) * 100) : 0;
-  const fmt = (n) => Math.round(n).toLocaleString("de-DE");
-
-  const fields = [
-    ["calc-count", "Standardangebote pro Monat", "z. B. Unterhalts- oder Glasreinigung", count, setCount, 1, 200, 1],
-    ["calc-today", "Minuten pro Angebot heute", "inklusive Rückfragen, Kalkulation und E-Mail", today, setToday, 5, 180, 5],
-    ["calc-check", "Minuten für Prüfen und Senden", "Annahme, anpassbar", check, setCheck, 1, 60, 1],
-  ];
-  const bars = [["Heute", hoursToday, 100, "bg-[#B9C1BF]"], ["Mit ANVERO", hoursWith, share, "bg-av-petrol"]];
-
-  return (
-    <section id="rechner" className="bg-white py-20 sm:py-28">
-      <div className="mx-auto max-w-[1120px] px-5 lg:px-8">
-        <p className={KICKER}>Zeitrechner</p>
-        <h2 className={H2}>Wie viel Zeit steckt bei Ihnen in Standardangeboten?</h2>
-        <p className={LEAD}>Rechnen Sie mit Ihren eigenen Werten.</p>
-
-        <div className="mt-12 grid gap-12 lg:grid-cols-2 lg:gap-16">
-          <div className="space-y-8">
-            {fields.map(([id, label, hint, value, set, min, max, step]) => (
-              <div key={id}>
-                <div className="flex items-baseline justify-between gap-4">
-                  <label htmlFor={id} className="text-[15px] font-medium text-av-ink">{label}</label>
-                  <span className="text-[17px] font-semibold tabular-nums text-av-ink">{value}</span>
-                </div>
-                <p id={`${id}-hint`} className="mt-0.5 text-[13px] text-av-muted">{hint}</p>
-                <input id={id} type="range" min={min} max={max} step={step} value={value}
-                  aria-describedby={`${id}-hint`} onChange={(e) => set(Number(e.target.value))}
-                  className="mt-3 w-full accent-av-petrol" />
-              </div>
-            ))}
-          </div>
-
-          <div className="border-t border-av-line pt-10 lg:border-l lg:border-t-0 lg:pl-16 lg:pt-0">
-            <p className="text-[14px] font-medium text-av-muted">Zeit pro Monat</p>
-            <div className="mt-4 space-y-3">
-              {bars.map(([label, hours, width, color]) => (
-                <div key={label} className="grid grid-cols-[6.5rem_1fr_4.5rem] items-center gap-3">
-                  <span className="text-[14px] text-av-body">{label}</span>
-                  <span className="block h-3 rounded-full bg-av-line">
-                    <span className={`block h-3 rounded-full ${color}`} style={{ width: `${width}%` }} />
-                  </span>
-                  <span className="text-right text-[14px] tabular-nums text-av-ink">{fmt(hours)} Std.</span>
-                </div>
-              ))}
-            </div>
-
-            <div aria-live="polite">
-              <p className="mt-8 text-[14px] font-medium text-av-muted">Ihre mögliche Zeitersparnis</p>
-              <p className="mt-1 text-[clamp(2.25rem,4.5vw,3rem)] font-semibold leading-none tracking-[-.02em] text-av-petrol">
-                {fmt(saved)} Std. pro Monat
-              </p>
-              <p className="mt-2 text-[16px] text-av-body">rund {fmt(saved * 12)} Std. im Jahr</p>
-            </div>
-
-            <p className="mt-8 text-[15px] text-av-body">Ihre Zahlen gehen wir in der Demo gemeinsam durch.</p>
-            <CalendlyButton className="mt-4 w-full sm:w-auto" />
-            <p className="mt-4 text-[13px] leading-5 text-av-muted">
-              Rechenbeispiel auf Grundlage Ihrer Angaben. Sonderfälle sind nicht eingerechnet. Keine Zusage.
-            </p>
-          </div>
-        </div>
-      </div>
-    </section>
-  );
-}
-
 /* ── Pilotphase: frühe Zusammenarbeit ──────────────────────────── */
 
 function Pilot() {
@@ -343,7 +404,7 @@ function Pilot() {
     ["Gemeinsam starten", "Ihr Team arbeitet mit fertigen Angeboten im Postfach, prüft und sendet."],
   ];
   return (
-    <section id="pilot" className="border-y border-av-line bg-av-paper py-20 sm:py-28">
+    <section id="pilot" className="border-b border-av-line bg-av-paper py-20 sm:py-28">
       <div className="mx-auto max-w-[1120px] px-5 lg:px-8">
         <p className={KICKER}>Pilotphase</p>
         <h2 className={`max-w-3xl ${H2}`}>Gestalten Sie den Angebotsprozess gemeinsam mit ANVERO.</h2>
@@ -636,7 +697,6 @@ function Home() {
         <Flow />
         <TimeSaving />
         <Control />
-        <Calculator />
         <Pilot />
         <Founder />
         <FAQ />

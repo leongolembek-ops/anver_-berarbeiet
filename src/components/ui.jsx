@@ -52,7 +52,7 @@ const CALENDLY_SIZES = {
 };
 
 export function CalendlyButton({ size = "md", className = "", onClick }) {
-  const base = `group inline-flex items-center justify-center gap-2 rounded-[10px] font-semibold ${CALENDLY_SIZES[size]}`;
+  const base = `group inline-flex shrink-0 items-center justify-center gap-2 whitespace-nowrap rounded-[10px] font-semibold ${CALENDLY_SIZES[size]}`;
   if (CALENDLY_HREF) {
     return (
       <a href={CALENDLY_HREF} target="_blank" rel="noopener noreferrer" onClick={onClick}

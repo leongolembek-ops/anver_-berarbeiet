@@ -166,16 +166,18 @@ gegen die Realitaet pruefen. Was nicht stimmt, wird gestrichen oder angepasst.
       "Kein allgemeiner KI-Assistent". Nur wieder aufnehmen, wenn belegt.
 
 **Zeitersparnis und Geschwindigkeit (neu)**
-- [ ] "Nach wenigen Minuten im Postfach": In der Demo liegen Angebot oder Rueckfrage nach 1-2 Minuten bereit
-      (Angabe des Inhabers). Beim Kunden haengt das von der Make-Abfragehaeufigkeit ab (sofort oder im
-      Intervall). Sicherstellen, dass Kundenanbindungen genauso schnell laufen, sonst Aussage anpassen.
-- [ ] Vorher/Nachher: Die acht Schritte "Heute" sind als "typischer Ablauf" gekennzeichnet. Bestaetigen, dass
-      sie der Praxis in Gebaeudereinigungen entsprechen.
-- [ ] Zeitrechner: rechnet nur mit Besucherangaben. Startwert "Pruefen und Senden" = 5 Minuten, als Annahme
-      gekennzeichnet (Inhaber: "wenige Minuten, abhaengig von der Person"). Wenn moeglich einmal messen.
-      Rechner mit Werbewirkung vor dem Livegang rechtlich ansehen lassen (UWG, Irrefuehrung).
-- [ ] "Reaktionszeit heute: Bearbeitung, sobald jemand Zeit hat" ist eine allgemeine Beschreibung, keine
-      Behauptung ueber einzelne Betriebe. Beibehalten oder streichen lassen.
+- [ ] Zeitangaben auf der Seite: Hero und Abschnitte enthalten keine Zeitzusage mehr. Uebrig sind nur die
+      Testdaten-Uhrzeiten im Beispielverlauf (09:14 / 09:16 / 11:02 / 11:04) und die FAQ "Wie schnell liegt ein
+      Angebot bereit? In der Regel nach wenigen Minuten". In der Demo liegen Angebot oder Rueckfrage nach 1-2
+      Minuten bereit (Angabe des Inhabers). Beim Kunden haengt das von der Make-Abfragehaeufigkeit ab. Sicherstellen,
+      dass Kundenanbindungen genauso schnell laufen, sonst FAQ anpassen oder streichen.
+- [ ] Arbeitsteilung: Die acht Schritte sind als "Typischer Ablauf einer Standardanfrage" gekennzeichnet (sieben
+      Petrol, einer Ocker). Bestaetigen, dass sie der Praxis in Gebaeudereinigungen entsprechen. Der Satz "7 von 8
+      Arbeitsschritten uebernimmt ANVERO" wird bewusst nicht verwendet.
+- [ ] Zeitrechner: rechnet nur mit Besucherangaben. Startwert "Minuten fuer Pruefen und Senden mit ANVERO" = 5,
+      als anpassbarer Beispielwert gekennzeichnet (Inhaber: "wenige Minuten, abhaengig von der Person"). Der
+      Hinweis steht direkt unter dem Ergebnis. Wenn moeglich einmal messen. Rechner mit Werbewirkung vor dem
+      Livegang rechtlich ansehen lassen (UWG, Irrefuehrung).
 
 **Pilotangebot (Abschnitt "Pilotphase")**
 - [ ] "Vergünstigte Pilotkonditionen": Konditionen intern festlegen, bevor die erste Demo stattfindet.
